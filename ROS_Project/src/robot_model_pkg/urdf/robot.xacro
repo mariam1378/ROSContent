@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="four_wheel_robot">
+
+  <!-- Define properties -->
+  <xacro:property name="wheelbase" value="0.4"/>
+  <xacro:property name="track" value="0.3"/>
+  <xacro:property name="wheel_radius" value="0.05"/>
+
+  <!-- Define macros for wheel -->
+  <xacro:macro name="wheel_link" params="name">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="0.03"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="0.03"/>
+      </geometry>
+    </collision>
+  </xacro:macro>
+
+  <!-- Robot model -->
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="${wheelbase} ${track} 0.1"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <!-- Front left wheel -->
+  <joint name="joint_front_left_wheel" type="continuous">
+    <origin xyz="${wheelbase/2} ${track/2} 0"/>
+    <parent link="base_link"/>
+    <child link="front_left_wheel"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="front_left_wheel">
+    <xacro:wheel_link name="front_left_wheel_visual"/>
+  </link>
+
+  <!-- Front right wheel -->
+  <joint name="joint_front_right_wheel" type="continuous">
+    <origin xyz="${wheelbase/2} -${track/2} 0"/>
+    <parent link="base_link"/>
+    <child link="front_right_wheel"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="front_right_wheel">
+    <xacro:wheel_link name="front_right_wheel_visual"/>
+  </link>
+
+  <!-- Rear left wheel -->
+  <joint name="joint_rear_left_wheel" type="continuous">
+    <origin xyz="-${wheelbase/2} ${track/2} 0"/>
+    <parent link="base_link"/>
+    <child link="rear_left_wheel"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="rear_left_wheel">
+    <xacro:wheel_link name="rear_left_wheel_visual"/>
+  </link>
+
+  <!-- Rear right wheel -->
+  <joint name="joint_rear_right_wheel" type="continuous">
+    <origin xyz="-${wheelbase/2} -${track/2} 0"/>
+    <parent link="base_link"/>
+    <child link="rear_right_wheel"/>
+    <axis xyz="0 0 1"/>
+  </joint>
+  <link name="rear_right_wheel">
+    <xacro:wheel_link name="rear_right_wheel_visual"/>
+  </link>
+
+</robot>
+

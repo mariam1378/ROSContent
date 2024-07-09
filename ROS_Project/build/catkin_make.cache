@@ -1,0 +1,2 @@
+robot_model_pkg
+-DCATKIN_DEVEL_PREFIX=/home/robotics/ROS_Project/devel -DCMAKE_INSTALL_PREFIX=/home/robotics/ROS_Project/install -G Unix Makefiles
